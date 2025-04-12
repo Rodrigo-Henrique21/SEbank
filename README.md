@@ -1,17 +1,17 @@
-# 💰 Aplicação Bancária com Python, Supabase e Frontend
+## 💰 SEbank – Aplicação Bancária com Python e Supabase
 
-Este projeto é uma **aplicação bancária fullstack** desenvolvida com **Python no backend**, **Supabase** como backend-as-a-service (BaaS), e um **frontend interativo** para a interface do usuário.
+O **SEbank** é uma aplicação bancária fullstack desenvolvida com **Python** no backend e **Supabase** como backend-as-a-service (BaaS). A aplicação oferece funcionalidades básicas de uma conta bancária digital, com arquitetura organizada e escalável.
 
 ---
 
 ## 🚀 Funcionalidades
 
-- ✅ Cadastro e login de usuários com autenticação via **Supabase**
-- ✅ Visualização de **saldo e extrato bancário**
-- ✅ **Transferência** de valores entre contas
-- ✅ **Depósito** e **saque**
-- ✅ **Histórico de transações**
-- ✅ Integração segura entre **frontend**, **backend** e **Supabase**
+- Cadastro e login de usuários via Supabase Auth
+- Visualização de saldo
+- Saques
+- Histórico de transações (em desenvolvimento)
+- Estrutura modular com separação clara entre backend e frontend
+- Gerenciamento de variáveis de ambiente via `.env`
 
 ---
 
@@ -19,22 +19,22 @@ Este projeto é uma **aplicação bancária fullstack** desenvolvida com **Pytho
 
 ### 🔙 Backend
 
-- Python  
-- FastAPI *(ou Flask)*  
-- Supabase Python Client (`supabase-py`)  
-- JWT para autenticação segura *(opcional)*
+- Python 3.9+
+- FastAPI *(com base no `main.py` e `backend/backend.py`)*
+- Supabase Python Client (`supabase-py`)
+- Uvicorn (para execução local)
+- Dotenv (para gerenciamento de configurações sensíveis)
 
 ### 🌐 Frontend
 
-- HTML, CSS e JavaScript *(ou React)*  
-- Axios para chamadas à API  
-- Bootstrap ou TailwindCSS para estilização
+- Interface via script Python (`frontend/frontend.py`)
+- Estrutura básica integrada ao backend
 
 ### 🗄️ Banco de Dados
 
-- Supabase PostgreSQL  
-- Supabase Auth *(autenticação)*  
-- Supabase Storage *(opcional, para arquivos)*
+- Supabase PostgreSQL
+- Supabase Auth para autenticação
+- Supabase Storage (não utilizado até o momento)
 
 ---
 
@@ -42,22 +42,19 @@ Este projeto é uma **aplicação bancária fullstack** desenvolvida com **Pytho
 
 ```
 banco-app/
-│_____ src
+│___ src
 |
 ├───── backend/
-|      ├── main.py               # Entrada da API (FastAPI)
-|      ├── services/
-|      ├── models/
-|      └── supabase_client.py    # Conexão com o Supabase
+|      ├── init.py
+|      └── backend.py/
 │
 ├───── frontend/
-|      ├── index.html
-|      ├── login.html
-|      ├── dashboard.html
-|      └── js/
-|          └── scripts.js
-│
-├── .env                      # Variáveis de ambiente
+|      ├── init.py
+|      └── frontend.py/
+|
+├── docs
+├── assets
+├── .env                      
 ├── requirements.txt
 └── README.md
 
@@ -89,16 +86,6 @@ uvicorn main:app --reload
 - SUPABASE_KEY=your-anon-or-service-role-key
 
 ## 3️⃣ Frontend
-
-
-### Abra frontend/index.html no navegador
-### Ou utilize ferramentas como:
-
-* Live Server (VS Code)
-
-* React App
-
-* Vite
 
 ## 🧪 Exemplo de Uso da API (FastAPI)
 

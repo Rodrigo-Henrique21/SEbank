@@ -71,7 +71,6 @@ class Tela:
             icon=ft.icons.ARROW_BACK,
             bgcolor=corFundo,
             color=corTexto,
-            style=ft.TextStyle(weight=ft.FontWeight.BOLD,size=4),
             on_click=lambda e: self.telaLogin()
         )
 

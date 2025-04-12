@@ -1,5 +1,5 @@
 import flet as ft
-from frontend import Tela
+from frontend.frontend import Tela
 
 def main(page: ft.Page):
     app = Tela(page)

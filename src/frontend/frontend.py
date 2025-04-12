@@ -1,5 +1,5 @@
 import flet as ft
-import backend as be
+import backend.backend as be
 
 class Tela:
     def __init__(self, page: ft.Page):

@@ -1,0 +1,2 @@
+url = "https://hqqundjxqyimhguccgri.supabase.co"
+senha = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhxcXVuZGp4cXlpbWhndWNjZ3JpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDM5MDU1MzAsImV4cCI6MjA1OTQ4MTUzMH0.ZTVJed8U8ysjpZqatjhtygahzQoQ_R1JWvbiZAgTWFA"

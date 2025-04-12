@@ -82,7 +82,7 @@ class Tela:
             text_style=ft.TextStyle(weight=ft.FontWeight.BOLD, size=26)
         )
 
-        botaoSacar = ft.ElevatedButton("SACAR", width=200, height=150, on_click=lambda e: None, style=estiloBotao)
+        botaoSacar = ft.ElevatedButton("SACAR", width=200, height=150, on_click=lambda e: self.telaSacar(), style=estiloBotao)
         botaoDepositar = ft.ElevatedButton("DEPOSITAR", width=200, height=150, on_click=lambda e: None, style=estiloBotao)
         botaoTransferir = ft.ElevatedButton("TRANSFERIR", width=200, height=150, on_click=lambda e: None, style=estiloBotao)
 
@@ -213,3 +213,39 @@ class Tela:
                 horizontal_alignment=ft.CrossAxisAlignment.CENTER
             )
         )
+
+    def telaSacar(self):
+        self.configurarJanela("Sacar", 1000, 600)
+
+        modoEscuro = self.page.platform_brightness.value == "dark"
+        corFundo = ft.colors.WHITE if modoEscuro else ft.colors.BLACK
+        corTexto = ft.colors.BLACK if modoEscuro else ft.colors.WHITE
+
+        estiloBotao = ft.ButtonStyle(
+            bgcolor=corFundo,
+            color=corTexto,
+            shape=ft.RoundedRectangleBorder(radius=75),
+            padding=20,
+            text_style=ft.TextStyle(weight=ft.FontWeight.BOLD, size=26)
+        )
+        
+        valorSaque = ft.TextField(label="Digite o valor que deseja sacar", width=300, keyboard_type=ft.KeyboardType.NUMBER, on_change=be.somenteNumero)
+        botaoSacar = ft.ElevatedButton("SACAR", width=200, height=150, on_click=lambda e: self.telaSacar(), style=estiloBotao)
+
+        self.page.add(ft.Stack(
+                controls=[
+                    ft.Container(
+                        content=ft.Row(
+                            controls=[botaoSacar, valorSaque],
+                            alignment=ft.MainAxisAlignment.CENTER,
+                            spacing=30
+                        ),
+                        alignment=ft.alignment.center,
+                        expand=True
+                    )
+                ],
+                expand=True
+            )
+        )
+
+    

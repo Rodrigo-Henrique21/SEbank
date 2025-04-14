@@ -4,6 +4,25 @@ import backend.backend as be
 class Tela:
     def __init__(self, page: ft.Page):
         self.page = page
+        modoEscuro = self.page.platform_brightness.value == "dark"
+        self.corFundo = ft.colors.WHITE if modoEscuro else ft.colors.BLACK
+        self.corTexto = ft.colors.BLACK if modoEscuro else ft.colors.WHITE
+        self.objetos()
+
+    def objetos(self):
+
+        self.estiloBotao = ft.ButtonStyle(bgcolor=self.corFundo,color=self.corTexto,shape=ft.RoundedRectangleBorder(radius=75),padding=20,text_style=ft.TextStyle(weight=ft.FontWeight.BOLD, size=26))
+        self.campoUsuario = ft.TextField(label="Digite o nome do usuário",on_change=be.tirarErro,prefix_icon=ft.icons.PERSON,capitalization=ft.TextCapitalization.CHARACTERS,width=300)
+        self.campoSenha = ft.TextField(label="Digite a senha",on_change=be.tirarErro,password=True,can_reveal_password=True,width=300,prefix_icon=ft.icons.LOCK_PERSON_OUTLINED)
+        self.botaoEntrar = ft.ElevatedButton("Entrar",width=300,on_click=lambda e: be.verificarValoresInput(self.page, self.campoUsuario, self.campoSenha, self.paginaInicial))
+        self.botaoCadastrar = ft.ElevatedButton("Cadastrar",width=300,on_click=lambda e: self.cadastroCliente())
+        self.valorSaque = ft.TextField(label="Digite o valor que deseja sacar", width=300, keyboard_type=ft.KeyboardType.NUMBER, on_change=be.somenteNumero)
+        self.botaoSacar = ft.ElevatedButton("SACAR", width=200, height=150, on_click=lambda e: self.telaSacar(), style=self.estiloBotao)
+        self.botaoSair = ft.Container(content=ft.ElevatedButton(text="Sair",icon=ft.icons.ARROW_BACK,bgcolor=self.corFundo,color=self.corTexto,on_click=lambda e: self.telaLogin()), alignment=ft.alignment.top_left, padding=10)
+        self.botaoSacar = ft.ElevatedButton("SACAR", width=200, height=150, on_click=lambda e: self.telaSacar(), style=self.estiloBotao)
+        self.botaoDepositar = ft.ElevatedButton("DEPOSITAR", width=200, height=150, on_click=lambda e: None, style=self.estiloBotao)
+        self.botaoTransferir = ft.ElevatedButton("TRANSFERIR", width=200, height=150, on_click=lambda e: None, style=self.estiloBotao)
+
 
     def configurarJanela(self, titulo: str, largura: int, altura: int, redimensionavel: bool = False):
         self.page.clean()
@@ -19,90 +38,21 @@ class Tela:
 
     def telaLogin(self):
         self.configurarJanela("Tela de Login", 350, 500)
-
-        campoUsuario = ft.TextField(
-            label="Digite o nome do usuário",
-            on_change=be.tirarErro,
-            prefix_icon=ft.icons.PERSON,
-            capitalization=ft.TextCapitalization.CHARACTERS,
-            width=300
-        )
-
-        campoSenha = ft.TextField(
-            label="Digite a senha",
-            on_change=be.tirarErro,
-            password=True,
-            can_reveal_password=True,
-            width=300,
-            prefix_icon=ft.icons.LOCK_PERSON_OUTLINED
-        )
-
-        botaoEntrar = ft.ElevatedButton(
-            "Entrar",
-            width=300,
-            on_click=lambda e: be.verificarValoresInput(self.page, campoUsuario, campoSenha, self.paginaInicial)
-        )
-
-        botaoCadastrar = ft.ElevatedButton(
-            "Cadastrar",
-            width=300,
-            on_click=lambda e: self.cadastroCliente()
-        )
-
+        
         conteudo = ft.Container(
             content=ft.Column(
-                controls=[campoUsuario, campoSenha, botaoEntrar, botaoCadastrar],
+                controls=[self.campoUsuario, self.campoSenha, self.botaoEntrar, self.botaoCadastrar],
                 alignment=ft.MainAxisAlignment.CENTER,
-                horizontal_alignment=ft.CrossAxisAlignment.CENTER
-            )
-        )
-
+                horizontal_alignment=ft.CrossAxisAlignment.CENTER))
+    
         self.page.add(conteudo)
 
     def paginaInicial(self):
         self.configurarJanela("Bem-vindo", 1000, 600)
 
-        modoEscuro = self.page.platform_brightness.value == "dark"
-        corFundo = ft.colors.WHITE if modoEscuro else ft.colors.BLACK
-        corTexto = ft.colors.BLACK if modoEscuro else ft.colors.WHITE
-
-        botaoSair = ft.ElevatedButton(
-            text="Sair",
-            icon=ft.icons.ARROW_BACK,
-            bgcolor=corFundo,
-            color=corTexto,
-            on_click=lambda e: self.telaLogin()
-        )
-
-        estiloBotao = ft.ButtonStyle(
-            bgcolor=corFundo,
-            color=corTexto,
-            shape=ft.RoundedRectangleBorder(radius=75),
-            padding=20,
-            text_style=ft.TextStyle(weight=ft.FontWeight.BOLD, size=26)
-        )
-
-        botaoSacar = ft.ElevatedButton("SACAR", width=200, height=150, on_click=lambda e: self.telaSacar(), style=estiloBotao)
-        botaoDepositar = ft.ElevatedButton("DEPOSITAR", width=200, height=150, on_click=lambda e: None, style=estiloBotao)
-        botaoTransferir = ft.ElevatedButton("TRANSFERIR", width=200, height=150, on_click=lambda e: None, style=estiloBotao)
-
-        self.page.add(
-            ft.Container(content=botaoSair, alignment=ft.alignment.top_left, padding=10),
-            ft.Stack(
-                controls=[
-                    ft.Container(
-                        content=ft.Row(
-                            controls=[botaoSacar, botaoDepositar, botaoTransferir],
-                            alignment=ft.MainAxisAlignment.CENTER,
-                            spacing=30
-                        ),
-                        alignment=ft.alignment.center,
-                        expand=True
-                    )
-                ],
-                expand=True
-            )
-        )
+        self.page.add(self.botaoSair,ft.Stack(controls=[ft.Container(content=ft.Row(
+            controls=[self.botaoSacar, self.botaoDepositar, self.botaoTransferir],alignment=ft.MainAxisAlignment.CENTER,
+            spacing=30),alignment=ft.alignment.center,expand=True)],expand=True))
 
     def cadastroCliente(self):
 
@@ -216,36 +166,8 @@ class Tela:
 
     def telaSacar(self):
         self.configurarJanela("Sacar", 1000, 600)
-
-        modoEscuro = self.page.platform_brightness.value == "dark"
-        corFundo = ft.colors.WHITE if modoEscuro else ft.colors.BLACK
-        corTexto = ft.colors.BLACK if modoEscuro else ft.colors.WHITE
-
-        estiloBotao = ft.ButtonStyle(
-            bgcolor=corFundo,
-            color=corTexto,
-            shape=ft.RoundedRectangleBorder(radius=75),
-            padding=20,
-            text_style=ft.TextStyle(weight=ft.FontWeight.BOLD, size=26)
-        )
-        
-        valorSaque = ft.TextField(label="Digite o valor que deseja sacar", width=300, keyboard_type=ft.KeyboardType.NUMBER, on_change=be.somenteNumero)
-        botaoSacar = ft.ElevatedButton("SACAR", width=200, height=150, on_click=lambda e: self.telaSacar(), style=estiloBotao)
-
-        self.page.add(ft.Stack(
-                controls=[
-                    ft.Container(
-                        content=ft.Row(
-                            controls=[botaoSacar, valorSaque],
-                            alignment=ft.MainAxisAlignment.CENTER,
-                            spacing=30
-                        ),
-                        alignment=ft.alignment.center,
-                        expand=True
-                    )
-                ],
-                expand=True
-            )
-        )
-
-    
+        self.page.add(ft.Stack(controls=[ft.Container(content=ft.Row(
+            controls=[self.botaoSacar, self.valorSaque],
+            alignment=ft.MainAxisAlignment.CENTER,
+            spacing=30),
+            alignment=ft.alignment.center,expand=True)],expand=True))

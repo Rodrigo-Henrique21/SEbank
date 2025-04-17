@@ -56,7 +56,7 @@ class Tela:
         self.configurarJanela("Sacar", 1000, 600)
         valorSaque = ft.TextField(label="Digite o valor que deseja sacar", width=300, keyboard_type=ft.KeyboardType.NUMBER, on_change=be.somenteNumero)
         botaoConfirmarSaque = ft.ElevatedButton("Confirmar Saque", width=200, height=150, on_click=lambda e: print("Saque realizado"), style=self.estiloBotao)
-        self.page.add(ft.Stack(controls=[ft.Container(content=ft.Row(controls=[valorSaque, botaoConfirmarSaque], alignment=ft.MainAxisAlignment.CENTER, spacing=30), alignment=ft.alignment.center, expand=True)], expand=True))
+        self.page.add(self.botaoSair,ft.Stack(controls=[ft.Container(content=ft.Row(controls=[valorSaque, botaoConfirmarSaque], alignment=ft.MainAxisAlignment.CENTER, spacing=30), alignment=ft.alignment.center, expand=True)], expand=True))
 
     def cadastroCliente(self):
         self.configurarJanela("Cadastro", 1000, 600)
